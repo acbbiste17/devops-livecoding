@@ -4,7 +4,7 @@ name: CI devops 2024 - Build and Push Docker Images
 on:
   workflow_run:
     # This workflow is triggered after the completion of the "CI devops 2024 - Test Backend" workflow
-    workflows: ["CI devops 2024 - Test Backend"]
+    workflows: CI devops 2024
     # The workflow is triggered when the above workflow finishes successfully (types: completed)
     types:
       - completed
