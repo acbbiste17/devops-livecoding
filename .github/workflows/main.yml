@@ -36,7 +36,7 @@ jobs:
         run: |
           cd simple-api
           mvn -B verify sonar:sonar \
-            -Dsonar.projectKey=Iznomoule_Lab-AppBigData \
-            -Dsonar.organization=iznomoule \
+            -Dsonar.projectKey=acbbiste17_devops-livecoding \
+            -Dsonar.organization=acbbiste17 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
