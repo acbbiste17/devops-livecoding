@@ -25,7 +25,7 @@ jobs:
       # Step 2: DockerHub Login
       - name: Login to DockerHub
         # Login to DockerHub using credentials stored in GitHub Secrets
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
 
       # Step 3: Build and Push the Backend Docker Image
       - name: Build image and push backend
@@ -35,7 +35,7 @@ jobs:
           # Set the context (path to the Dockerfile and necessary files for the backend)
           context: ./simple-api
           # Tag the image with the DockerHub username and the 'latest' tag
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/tp-devops-simple-api:latest
           # Push the image to DockerHub after building it
           push: true
 
@@ -47,7 +47,7 @@ jobs:
           # Set the context (path to the Dockerfile and necessary files for the database)
           context: ./database
           # Tag the image with the DockerHub username and the 'latest' tag
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/tp-devops-database:latest
           # Push the image to DockerHub after building it
           push: true
 
@@ -59,6 +59,6 @@ jobs:
           # Set the context (path to the Dockerfile and necessary files for the HTTP server)
           context: ./http-server
           # Tag the image with the DockerHub username and the 'latest' tag
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/tp-devops-httpd:latest
           # Push the image to DockerHub after building it
           push: true
