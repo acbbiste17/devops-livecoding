@@ -1,53 +1,42 @@
-name: CI devops 2024
-
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  test-backend:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2.5.0
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: |
-            ${{ runner.os }}-sonar
-
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2
-
-      - name: List files in simple-api
-        run: ls -R ./simple-api
-
-      - name: Build and analyze
-        working-directory: ./simple-api
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -X -e -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.0.4389:sonar \
-          -Dsonar.projectKey=acbbiste17_devops-livecoding \
-          -Dsonar.organization=acbbiste17 \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} 
+    push:
+      branches:
+        - main
+        - develop
+    pull_request:
+  
+  jobs:
+    test-backend:
+      runs-on: ubuntu-22.04
+      steps:
+        # Étape 1: Vérifiez le code
+        - name: Checkout code
+          uses: actions/checkout@v2.5.0
+  
+        # Étape 2: Configurez Java 17
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'corretto'
+  
+        # Étape 3: Construisez et testez avec Maven
+        - name: Build and test with Maven
+          run: mvn clean verify --file ./simple-api/pom.xml
+  
+        # # Etape 3.5: debug
+        # - name: Debug file structure
+        #   run: ls -R ./simple-api
+  
+        # Étape 4: Construisez, testez et analysez avec SonarCloud
+        - name: Build, test, and analyze with SonarCloud
+          run: |
+            cd simple-api
+            mvn -B verify sonar:sonar \
+              -Dsonar.projectKey=Iznomoule_Lab-AppBigData \
+              -Dsonar.organization=iznomoule \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+              
+  
+  
