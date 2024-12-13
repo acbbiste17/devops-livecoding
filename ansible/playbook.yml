@@ -2,7 +2,12 @@
   become: true
   roles:
     - role: docker
+      tags: docker
     - role: network
+      tags: network
     - role: database
+      tags: database
     - role: application
+      tags: application
     - role: proxy
+      tags: proxy
