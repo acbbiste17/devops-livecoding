@@ -1,5 +1,0 @@
-- name: Create Docker network
-  docker_network:
-    name: my_network
-    state: present
-
