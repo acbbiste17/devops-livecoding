@@ -1,5 +1,11 @@
 ---
-- name: Run HTTPD
+- name: Launch Proxy Container
   docker_container:
-    name: httpd
-    image: httpd:latest
+    name: http_proxy
+    image: acbbiste17/tp-devops-httpd:latest
+    ports:
+      - "80:80"  # Port HTTP exposé
+    networks:
+      - name: my_network_name  # Réseau partagé avec l'application et la base de données
+    volumes:
+      - ./proxy-config/httpd.conf:/usr/local/apache2/conf/httpd.conf  # Fichier de configuration personnalisé

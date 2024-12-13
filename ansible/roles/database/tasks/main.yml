@@ -1,6 +1,13 @@
 ---
-- name: Launch Database
+- name: Launch Database Container
   docker_container:
-    name: my_database
-    image: postgres:latest
-    env_file: /path/to/.env
+    name: database
+    image: acbbiste17/tp-devops-database:latest
+    env:
+      POSTGRES_DB: my_database  # Nom de la base de données
+      POSTGRES_USER: my_user    # Utilisateur de la base de données
+      POSTGRES_PASSWORD: my_password  # Mot de passe
+    ports:
+      - "5432:5432"  # Port exposé pour la base de données
+    networks:
+      - name: my_network_name  # Réseau partagé avec l'application
