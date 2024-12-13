@@ -35,3 +35,6 @@
         service:
           name: docker
           state: started
+
+    roles:
+      - role: docker
