@@ -1,11 +1,11 @@
----
-- name: Launch Proxy Container
+- name: Launch the proxy container (nginx)
   docker_container:
-    name: http_proxy
-    image: acbbiste17/tp-devops-httpd:latest
+    name: my_proxy
+    image: nginx:latest
+    state: started
+    restart_policy: always
     ports:
-      - "80:80"  # Port HTTP exposé
+      - "8080:80"
     networks:
-      - name: my_network_name  # Réseau partagé avec l'application et la base de données
-    volumes:
-      - ./proxy-config/httpd.conf:/usr/local/apache2/conf/httpd.conf  # Fichier de configuration personnalisé
+      - name: my_network
+

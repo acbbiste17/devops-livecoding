@@ -1,13 +1,13 @@
----
-- name: Launch Database Container
+- name: Run Database container (MySQL)
   docker_container:
-    name: database
-    image: acbbiste17/tp-devops-database:latest
+    name: mysql
+    image: mysql:latest
+    state: started
+    restart_policy: always
     env:
-      POSTGRES_DB: my_database  # Nom de la base de données
-      POSTGRES_USER: my_user    # Utilisateur de la base de données
-      POSTGRES_PASSWORD: my_password  # Mot de passe
-    ports:
-      - "5432:5432"  # Port exposé pour la base de données
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
     networks:
-      - name: my_network_name  # Réseau partagé avec l'application
+      - name: my_network
+    ports:
+      - "3306:3306"

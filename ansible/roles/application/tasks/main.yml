@@ -1,9 +1,13 @@
----
-- name: Launch Application Container
-  docker_container:
-    name: simple_api
-    image: acbbiste17/tp-devops-simple-api:latest
-    ports:
-      - "8080:8080"  # Port exposé pour l'API
+- name: Launch the application container
+  community.docker.docker_container:
+    name: my_app
+    image: nginx:latest
+    state: started
+    restart_policy: always
+    env:
+      APP_ENV: "production"
+      DATABASE_URL: "mysql://root:root_password@my_database/mydb"
     networks:
-      - name: my_network_name  # Réseau partagé avec les autres conteneurs
+      - name: my_network
+
+

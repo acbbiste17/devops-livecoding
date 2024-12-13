@@ -1,5 +1,5 @@
----
-- name: Create a Docker network
+- name: Create Docker network
   docker_network:
-    name: my_network_name
-    driver: bridge
+    name: my_network
+    state: present
+

@@ -1,4 +1,3 @@
----
 - name: Install required packages
   apt:
     name:
@@ -7,9 +6,8 @@
       - curl
       - gnupg
       - lsb-release
-      - python3-venv
     state: latest
-    update_cache: yes
+    update_cache: yes  # Assure que le cache est mis à jour avant d'installer les paquets
 
 - name: Add Docker GPG key
   apt_key:
@@ -20,14 +18,21 @@
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_facts['distribution_release'] }} stable"
     state: present
-    update_cache: yes
+    update_cache: yes  # Met à jour le cache des paquets après l'ajout du dépôt Docker
 
 - name: Install Docker
   apt:
     name: docker-ce
-    state: present
+    state: present  # Installe Docker Community Edition
 
 - name: Ensure Docker is running
   service:
     name: docker
-    state: started
+    state: started  # Démarre le service Docker
+
+- name: Run HTTPD container
+  docker_container:
+    name: httpd
+    image: httpd:latest  # Utilise l'image officielle HTTPD de Docker
+    state: started  # Assure que le conteneur est en cours d'exécution
+    restart_policy: always  # Assure que le conteneur redémarre automatiquement en cas de panne
