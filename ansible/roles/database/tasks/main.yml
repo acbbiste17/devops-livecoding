@@ -1,0 +1,6 @@
+---
+- name: Launch Database
+  docker_container:
+    name: my_database
+    image: postgres:latest
+    env_file: /path/to/.env

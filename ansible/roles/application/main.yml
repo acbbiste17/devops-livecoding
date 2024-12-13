@@ -1,0 +1,8 @@
+---
+- name: Launch Application
+  docker_container:
+    name: my_app
+    image: my_app_image
+    env:
+      APP_ENV: production
+      APP_DEBUG: false
