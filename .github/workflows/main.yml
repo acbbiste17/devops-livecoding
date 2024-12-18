@@ -30,13 +30,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: |
-            ${{ runner.os }}-sonar
+    #   - name: Cache SonarQube packages
+    #     uses: actions/cache@v4
+    #     with:
+    #       path: ~/.sonar/cache
+    #       key: ${{ runner.os }}-sonar
+    #       restore-keys: |
+    #         ${{ runner.os }}-sonar
 
       - name: List files in simple-api
         run: ls -R ./simple-api
@@ -47,3 +47,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -X -e -B verify sonar:sonar -Dsonar.projectKey=acbbiste17_devops-livecoding -Dsonar.organization=acbbiste17 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          
